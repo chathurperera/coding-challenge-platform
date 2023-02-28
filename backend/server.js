@@ -25,6 +25,16 @@ app.use('/api/', authRoutes);
 app.use('/api/code', codeRoutes);
 app.use('/api/test', testRoutes);
 
+//CONNECTING TO THE DATABASE
+mongoose.connection.once("open", async () => {
+  console.log("connected to MongoDB");
+  app.listen(PORT, () => console.log(`server running on port ${PORT}...`));
+});
+
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+});
+
 //SERVE STATIC ASSETS IF IN PRODUCTION
 if (process.env.NODE_ENV === "production") {
   //SET STATIC FOLDER
@@ -35,14 +45,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-//CONNECTING TO THE DATABASE
-mongoose.connection.once("open", async () => {
-  console.log("connected to MongoDB");
-  app.listen(PORT, () => console.log(`server running on port ${PORT}...`));
-});
 
-mongoose.connection.on("error", (err) => {
-  console.log(err);
-});
 
 
