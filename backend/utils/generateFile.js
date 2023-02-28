@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const dirCode = path.join(__dirname, "codes");
+
 if (!fs.existsSync(dirCode)) {
     fs.mkdirSync(dirCode, { recursive: true });
 }
